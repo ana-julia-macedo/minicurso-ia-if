@@ -1,20 +1,19 @@
 import streamlit as st
 
-st.set_page_config(page_title="Portal do Aluno", page_icon=" ")
-st.sidebar.title(" Desenvolvedor")
-st.sidebar.write("Minicurso IA para Devs")
+st.title("Calculadora de Notas do IF")
 
-st.title(" Simulador de Desempenho")
+n1 = st.text_input("Introduza a Nota 1")
+n2 = st.text_input("Introduza a Nota 2")
 
-c1, c2 = st.columns(2)
-with c1: n1 = st.text_input("Nota 1", value="0")
-  with c2: n2 = st.text_input("Nota 2", value="0")
-    if st.button("Analisar Notas", use_container_width=True):
-      try:
-        resultado = (float(n1) + float(n2)) / 2
-        if resultado >= 6.0:
-          st.success(f"Média: {resultado:.1f} - APROVADO! ")
-        else:
-          st.error(f"Média: {resultado:.1f} - RECUPERAÇÃO ")
-      except ValueError:
-        st.warning(" Erro: Introduza apenas números (use ponto para decimais).")
+if st.button("Calcular Média"):
+    try:
+        # Limpa espaços e troca vírgula por ponto
+        nota1 = float(n1.strip().replace(",", "."))
+        nota2 = float(n2.strip().replace(",", "."))
+
+        media = (nota1 + nota2) / 2
+
+        st.write("A tua média é:", round(media, 2))
+
+    except ValueError:
+        st.error("Digite apenas números válidos (ex: 7,5 ou 7.5).")
